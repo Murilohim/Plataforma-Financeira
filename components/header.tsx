@@ -1,4 +1,5 @@
 import { HeaderLogo } from "./header-logo"
+import { Navigation } from "./navigation"
 
 export const Header = () => {
     return (
@@ -7,6 +8,7 @@ export const Header = () => {
                 <div className="w-full flex items-center justify-between mb-14">
                     <div className="flex items-center lg:gap-x-16">
                         <HeaderLogo />
+                        <Navigation />
                     </div>
                 </div>
             </div>
