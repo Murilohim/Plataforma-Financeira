@@ -16,13 +16,13 @@ export const useCreateAccount = () => {
             return await response.json()
         },
         onSuccess: () => {
-            toast.success('Conta criada com sucesso')
+            toast.success('Conta criada com sucesso.')
             queryClient.invalidateQueries({
                 queryKey: ['accounts']
             })
         },
         onError: () => {
-            toast.error('Erro ao criar conta')
+            toast.error('Erro ao criar conta.')
         }
     })
 

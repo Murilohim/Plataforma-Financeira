@@ -8,7 +8,7 @@ export const useGetAccounts = () => {
             const response = await client.api.accounts.$get()
 
             if (!response.ok) {
-                throw new Error('Failed to fetch accounts')
+                throw new Error('Erro ao buscar contas.')
             }
 
             const { data } = await response.json()
