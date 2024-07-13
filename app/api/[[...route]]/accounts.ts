@@ -15,7 +15,7 @@ const app = new Hono()
             const auth = getAuth(c)
 
             if (!auth?.userId) {
-                return c.json({ error: "Unauthorized" }, 401)
+                return c.json({ error: "Não autorizado!" }, 401)
             }
 
             const data = await db
@@ -28,6 +28,44 @@ const app = new Hono()
 
             return c.json({ data })
         })
+    .get(
+        "/:id",
+        zValidator("param", z.object({
+            id: z.string().optional(),
+        })),
+        clerkMiddleware(),
+        async (c) => {
+            const auth = getAuth(c)
+            const { id } = c.req.valid("param")
+
+            if (!id) {
+                return c.json({ error: "Id ausente" }, 400)
+            }
+
+            if (!auth?.userId) {
+                return c.json({ error: "Não autorizado!" }, 401)
+            }
+
+            const [data] = await db
+                .select({
+                    id: accounts.id,
+                    name: accounts.name,
+                })
+                .from(accounts)
+                .where(
+                    and(
+                        eq(accounts.userId, auth.userId),
+                        eq(accounts.id, id)
+                    )
+                )
+
+            if (!data) {
+                return c.json({ error: "Conta não encontrada" }, 404)
+            }
+
+            return c.json({ data })
+        }
+    )
     .post(
         "/",
         clerkMiddleware(),
@@ -39,7 +77,7 @@ const app = new Hono()
             const values = c.req.valid("json")
 
             if (!auth?.userId) {
-                return c.json({ error: "Unauthorized" }, 401)
+                return c.json({ error: "Não autorizado!" }, 401)
             }
 
             const [data] = await db
@@ -66,7 +104,7 @@ const app = new Hono()
             const { ids } = c.req.valid("json")
 
             if (!auth?.userId) {
-                return c.json({ error: "Unauthorized" }, 401)
+                return c.json({ error: "Não autorizado!" }, 401)
             }
 
             const data = await db
