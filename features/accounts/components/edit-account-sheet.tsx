@@ -5,6 +5,7 @@ import { z } from "zod";
 import { useCreateAccount } from "../api/use-create-account";
 import { useOpenAccount } from "../hooks/use-open-account";
 import { useGetAccount } from "../api/use-get-account";
+import { Loader2 } from "lucide-react";
 
 const formSchema = insertAccountsSchema.pick({
     name: true,
@@ -15,7 +16,7 @@ type FormValues = z.input<typeof formSchema>;
 export const EditAccountSheet = () => {
     const { isOpen, onClose, id } = useOpenAccount()
 
-    const { data: accountData } = useGetAccount(id)
+    const { data: accountData, isLoading: isLoadingAccount } = useGetAccount(id)
 
     const mutation = useCreateAccount()
 
@@ -34,17 +35,29 @@ export const EditAccountSheet = () => {
             <SheetContent className="space-y-4">
                 <SheetHeader>
                     <SheetTitle>
-                        Nova conta
+                        Editar conta
                     </SheetTitle>
                     <SheetDescription>
-                        Crie uma nova conta para acompanhar suas transações
+                        Atualize as informações da sua conta
                     </SheetDescription>
                 </SheetHeader>
-                <AccountForm
-                    onSubmit={onSubmit}
-                    disabled={mutation.isPending}
-                    defaultValues={defaultValues}
-                />
+                {isLoadingAccount ? (
+                    <div
+                        className="absolute inset-0 flex items-center justify-center"
+                    >
+                        <Loader2
+                            className="size-4 text-muted-foreground animate-spin"
+                        />
+                    </div>
+                ) : (
+                    <AccountForm
+                        id={id}
+                        onSubmit={onSubmit}
+                        disabled={mutation.isPending}
+                        defaultValues={defaultValues}
+                    />
+                )
+                }
             </SheetContent>
         </Sheet>
     )
