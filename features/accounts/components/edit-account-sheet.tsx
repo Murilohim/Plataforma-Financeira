@@ -1,9 +1,10 @@
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle } from "@/components/ui/sheet"
-import { useNewAccount } from "../hooks/use-new-accounts"
 import { AccountForm } from "./account-form"
 import { insertAccountsSchema } from "@/db/schema";
 import { z } from "zod";
 import { useCreateAccount } from "../api/use-create-account";
+import { useOpenAccount } from "../hooks/use-open-account";
+import { useGetAccount } from "../api/use-get-account";
 
 const formSchema = insertAccountsSchema.pick({
     name: true,
@@ -11,8 +12,10 @@ const formSchema = insertAccountsSchema.pick({
 
 type FormValues = z.input<typeof formSchema>;
 
-export const NewAccountSheet = () => {
-    const { isOpen, onClose } = useNewAccount()
+export const EditAccountSheet = () => {
+    const { isOpen, onClose, id } = useOpenAccount()
+
+    const { data: accountData } = useGetAccount(id)
 
     const mutation = useCreateAccount()
 
@@ -23,6 +26,8 @@ export const NewAccountSheet = () => {
             }
         })
     }
+
+    const defaultValues = accountData ? { name: accountData.name } : { name: '' }
 
     return (
         <Sheet open={isOpen} onOpenChange={onClose}>
@@ -38,7 +43,7 @@ export const NewAccountSheet = () => {
                 <AccountForm
                     onSubmit={onSubmit}
                     disabled={mutation.isPending}
-                    defaultValues={{ name: '' }}
+                    defaultValues={defaultValues}
                 />
             </SheetContent>
         </Sheet>
