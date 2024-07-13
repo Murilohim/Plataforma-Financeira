@@ -82,9 +82,13 @@ export function DataTable<TData, TValue>({
                         size={"sm"}
                         variant="outline"
                         className="ml-auto font-normal text-xs"
+                        onClick={() => {
+                            onDelete(table.getFilteredSelectedRowModel().rows)
+                            table.resetRowSelection()
+                        }}
                     >
                         <Trash className="size-4 mr-2" />
-                        Excluir ({table.getFilteredSelectedRowModel().rows.length})
+                        Deletar ({table.getFilteredSelectedRowModel().rows.length})
                     </Button>
                 )}
             </div>
@@ -125,7 +129,7 @@ export function DataTable<TData, TValue>({
                         ) : (
                             <TableRow>
                                 <TableCell colSpan={columns.length} className="h-24 text-center">
-                                    No results.
+                                    Nenhum resultado encontrado.
                                 </TableCell>
                             </TableRow>
                         )}
