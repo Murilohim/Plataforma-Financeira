@@ -4,6 +4,7 @@ import { EditAccountSheet } from "@/features/accounts/components/edit-account-sh
 import { NewAccountSheet } from "@/features/accounts/components/new-account-sheet"
 import { EditCategorySheet } from "@/features/categories/components/edit-category-sheet"
 import { NewCategorySheet } from "@/features/categories/components/new-category-sheet"
+import { NewTransactionSheet } from "@/features/transactions/components/new-transaction-sheet"
 
 export const SheetProvider = () => {
     return (
@@ -13,6 +14,8 @@ export const SheetProvider = () => {
 
             <NewCategorySheet />
             <EditCategorySheet />
+
+            <NewTransactionSheet />
         </>
     )
 }
