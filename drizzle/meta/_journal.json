@@ -15,6 +15,20 @@
       "when": 1720818878012,
       "tag": "0001_low_nighthawk",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1720927490210,
+      "tag": "0002_white_frightful_four",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "5",
+      "when": 1720931660418,
+      "tag": "0003_volatile_cammi",
+      "breakpoints": true
     }
   ]
 }
