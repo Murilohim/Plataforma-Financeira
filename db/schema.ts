@@ -35,13 +35,13 @@ export const transactions = pgTable("transactions", {
     payee: text("payee").notNull(),
     notes: text("notes"),
     date: timestamp("date", { mode: "date" }).notNull(),
-    acountId: text("account_id").references(() => accounts.id, { onDelete: "cascade" }).notNull(),
+    accountId: text("account_id").references(() => accounts.id, { onDelete: "cascade" }).notNull(),
     categoryId: text("category_id").references(() => categories.id, { onDelete: "set null" }),
 })
 
 export const transactionsRelations = relations(transactions, ({ one }) => ({
     account: one(accounts, {
-        fields: [transactions.acountId],
+        fields: [transactions.accountId],
         references: [accounts.id]
     }),
     categories: one(categories, {
