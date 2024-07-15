@@ -49,7 +49,8 @@ export const TransactionForm = ({ id, defaultValues, onSubmit, onDelete, disable
     });
 
     const handleSubmit = (values: FormValues) => {
-        const amount = parseFloat(values.amount);
+        const amountReplace = values.amount.replace('.', '').replace(',', '.')
+        const amount = parseFloat(amountReplace);
 
         onSubmit({
             ...values,
