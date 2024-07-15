@@ -2,8 +2,8 @@
 
 import { Button } from "@/components/ui/button";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
-import { useDeleteAccount } from "@/features/accounts/api/use-delete-account";
-import { useOpenAccount } from "@/features/accounts/hooks/use-open-account";
+import { useDeleteTransaction } from "@/features/transactions/api/use-delete-transaction";
+import { useOpenTransaction } from "@/features/transactions/hooks/use-open-transaction";
 import { useConfirm } from "@/hooks/use-confirm";
 import { Edit, MoreHorizontal, Trash } from "lucide-react";
 
@@ -16,17 +16,17 @@ export const Actions = (
 ) => {
     const [ConfirmDialog, confirm] = useConfirm(
         "Você tem certeza?",
-        "Você não poderá desfazer essa ação. Deseja prosseguir com a deleção da conta?"
+        "Você não poderá desfazer essa ação. Deseja prosseguir com a deleção da transação?"
     )
 
-    const { mutate: deleteAccountMutate, isPending: isPendingDeleteAccount } = useDeleteAccount(id)
-    const { onOpen } = useOpenAccount()
+    const { mutate: deleteTransactionMutate, isPending: isPendingDeleteTransaction } = useDeleteTransaction(id)
+    const { onOpen } = useOpenTransaction()
 
     const handleDelete = async () => {
         const ok = await confirm()
 
         if (ok) {
-            deleteAccountMutate()
+            deleteTransactionMutate()
         }
     }
 
@@ -50,7 +50,7 @@ export const Actions = (
                 >
                     <DropdownMenuItem
                         onClick={() => onOpen(id)}
-                        disabled={isPendingDeleteAccount}
+                        disabled={isPendingDeleteTransaction}
                     >
                         <Edit
                             className="size-4 mr-2"
@@ -59,7 +59,7 @@ export const Actions = (
                     </DropdownMenuItem>
                     <DropdownMenuItem
                         onClick={handleDelete}
-                        disabled={isPendingDeleteAccount}
+                        disabled={isPendingDeleteTransaction}
                     >
                         <Trash
                             className="size-4 mr-2"

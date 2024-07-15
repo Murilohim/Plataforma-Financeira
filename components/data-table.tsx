@@ -70,12 +70,28 @@ export function DataTable<TData, TValue>({
         },
     })
 
+    const mapFilterKey = (key: string): string => {
+        const map: Record<string, string>
+            = {
+            date: "Data",
+            notes: "Observações",
+            category: "Categoria",
+            account: "Conta",
+            amount: "Quantia",
+            payee: "Beneficiário",
+            name: "Nome",
+        }
+
+        return map[key] ?? key
+    }
+
+
     return (
         <div>
             <ConfirmDialog />
             <div className="flex items-center py-4">
                 <Input
-                    placeholder={`Filtrar ${filterKey}...`}
+                    placeholder={`Filtrar ${mapFilterKey(filterKey)}...`}
                     value={(table.getColumn(filterKey)?.getFilterValue() as string) ?? ""}
                     onChange={(event) =>
                         table.getColumn(filterKey)?.setFilterValue(event.target.value)
