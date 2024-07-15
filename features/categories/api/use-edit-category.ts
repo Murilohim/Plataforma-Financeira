@@ -26,6 +26,9 @@ export const useEditCategory = (id?: string) => {
             queryClient.invalidateQueries({
                 queryKey: ['categories']
             })
+            queryClient.invalidateQueries({
+                queryKey: ['transactions']
+            })
         },
         onError: () => {
             toast.error('Erro ao editar categoria.')
