@@ -5,6 +5,7 @@ import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
 import { Button } from "./ui/button";
 import { cn } from "@/lib/utils";
 import { Calendar } from "./ui/calendar";
+import { ptBR } from "date-fns/locale";
 
 
 type Props = {
@@ -31,7 +32,9 @@ export const DatePicker = ({ value, onChange, disabled }: Props) => {
                     }
                 >
                     <CalendarIcon className="size-4 mr-2" />
-                    {value ? format(value, "PPP") : <span>Selecione uma data</span>}
+                    {value ? format(value, "PPP", {
+                        locale: ptBR
+                    }) : <span>Selecione uma data</span>}
                 </Button>
             </PopoverTrigger>
             <PopoverContent>
@@ -41,6 +44,7 @@ export const DatePicker = ({ value, onChange, disabled }: Props) => {
                     onSelect={onChange}
                     disabled={disabled}
                     initialFocus
+                    locale={ptBR}
                 />
             </PopoverContent>
         </Popover>
