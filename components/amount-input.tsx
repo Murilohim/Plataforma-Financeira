@@ -19,7 +19,9 @@ export const AmountInput = ({ value, onChange, disabled, placeholder }: Props) =
 
     const onReverseValue = () => {
         if (!value) return;
-        const newValue = parseFloat(value) * -1
+        const valueReplace = value.replace(',', '.')
+        const newValue = parseFloat(valueReplace) * -1
+
         onChange(newValue.toString());
     }
 
