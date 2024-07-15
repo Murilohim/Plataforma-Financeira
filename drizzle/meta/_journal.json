@@ -29,6 +29,13 @@
       "when": 1720931660418,
       "tag": "0003_volatile_cammi",
       "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "5",
+      "when": 1721020458981,
+      "tag": "0004_rapid_madripoor",
+      "breakpoints": true
     }
   ]
 }
