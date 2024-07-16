@@ -20,6 +20,9 @@ export const useBulkDeleteCategories = () => {
             queryClient.invalidateQueries({
                 queryKey: ['categories']
             })
+            queryClient.invalidateQueries({
+                queryKey: ['summary']
+            })
         },
         onError: () => {
             toast.error('Erro ao deletar categorias.')

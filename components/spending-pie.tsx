@@ -1,25 +1,24 @@
-import { AreaChart, BarChart, FileSearch, LineChart, Loader2 } from "lucide-react"
+import { FileSearch, Loader2, PieChart, Radar, Target } from "lucide-react"
 import { Card, CardContent, CardHeader, CardTitle } from "./ui/card"
-import { AreaVariant } from "./area-variant"
-import { BarVariant } from "./bar-variant"
-import { LineVariant } from "./line-variant"
 import { useState } from "react"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./ui/select"
+import { PieVariant } from "./pie-variant"
+import { RadarVariant } from "./radar-variant"
+import { RadialVariant } from "./radial-variant"
 import { Skeleton } from "./ui/skeleton"
 
 type Props = {
     data?: {
-        date: string,
-        income: number,
-        expenses: number
+        name: string
+        value: number
     }[]
 }
 
-export const Chart = ({ data }: Props) => {
+export const SpendingPie = ({ data }: Props) => {
 
-    const [chartType, setChartType] = useState<'line' | 'bar' | 'area'>('area')
+    const [chartType, setChartType] = useState<'pie' | 'radar' | 'radial'>('pie')
 
-    const onTypeChange = (type: 'line' | 'bar' | 'area') => {
+    const onTypeChange = (type: 'pie' | 'radar' | 'radial') => {
         setChartType(type)
     }
 
@@ -33,7 +32,7 @@ export const Chart = ({ data }: Props) => {
                 <CardTitle
                     className="text-xl line-clamp-1"
                 >
-                    Transações
+                    Categorias
                 </CardTitle>
                 <Select
                     defaultValue={chartType}
@@ -48,50 +47,50 @@ export const Chart = ({ data }: Props) => {
                     </SelectTrigger>
                     <SelectContent>
                         <SelectItem
-                            value="area"
+                            value="pie"
                         >
                             <div
                                 className="flex items-center"
                             >
-                                <AreaChart
+                                <PieChart
                                     className="size-4 mr-2 shrink-0"
                                 />
                                 <p
                                     className="line-clamp-1"
                                 >
-                                    Gráfico de Área
+                                    Gráfico de Pizza
                                 </p>
                             </div>
                         </SelectItem>
                         <SelectItem
-                            value="line"
+                            value="radar"
                         >
                             <div
                                 className="flex items-center"
                             >
-                                <LineChart
+                                <Radar
                                     className="size-4 mr-2 shrink-0"
                                 />
                                 <p
                                     className="line-clamp-1"
                                 >
-                                    Gráfico de Linha
+                                    Gráfico de Radar
                                 </p>
                             </div>
                         </SelectItem>
                         <SelectItem
-                            value="bar"
+                            value="radial"
                         >
                             <div
                                 className="flex items-center"
                             >
-                                <BarChart
+                                <Target
                                     className="size-4 mr-2 shrink-0"
                                 />
                                 <p
                                     className="line-clamp-1"
                                 >
-                                    Gráfico de Barra
+                                    Gráfico Radial
                                 </p>
                             </div>
                         </SelectItem>
@@ -114,18 +113,18 @@ export const Chart = ({ data }: Props) => {
                     </div>
                 ) : (
                     <>
-                        {chartType === 'area' && (
-                            <AreaVariant
+                        {chartType === 'pie' && (
+                            <PieVariant
                                 data={data}
                             />
                         )}
-                        {chartType === 'line' && (
-                            <LineVariant
+                        {chartType === 'radar' && (
+                            <RadarVariant
                                 data={data}
                             />
                         )}
-                        {chartType === 'bar' && (
-                            <BarVariant
+                        {chartType === 'radial' && (
+                            <RadialVariant
                                 data={data}
                             />
                         )}
@@ -136,7 +135,7 @@ export const Chart = ({ data }: Props) => {
     )
 }
 
-export const ChartLoading = () => {
+export const SpendingPieLoading = () => {
 
     return (
         <Card
