@@ -24,6 +24,9 @@ export const useDeleteCategory = (id?: string) => {
             queryClient.invalidateQueries({
                 queryKey: ['categories']
             })
+            queryClient.invalidateQueries({
+                queryKey: ['summary']
+            })
         },
         onError: () => {
             toast.error('Erro ao deletar categoria.')
